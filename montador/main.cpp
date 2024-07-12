@@ -11,6 +11,9 @@ int main(int argc, char *argv[]) {
 
     if (op == "-p") { // Pre-processamento
         // fazer pre-processamento
+        // object pre_processed_file
+        // pre_processed_file = preprocess(file)
+        // createFile(pre_processed_file, '.pre')
     } 
     
     else if (op == "-o") { // Montagem
