@@ -14,10 +14,12 @@ int main(int argc, char *argv[]) {
         // object pre_processed_file
         // pre_processed_file = preprocess(file)
         // createFile(pre_processed_file, '.pre')
+        return 0;
     } 
     
     else if (op == "-o") { // Montagem
         // montagem
+        return 0;
     }
 
     else {
