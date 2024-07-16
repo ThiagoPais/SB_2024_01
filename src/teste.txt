@@ -1,0 +1,3 @@
+LOAD A
+SUB B ; TESTE
+ADD C

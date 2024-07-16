@@ -1,5 +1,11 @@
 #include "../include/utils.h"
 #include <string>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <string>
+#include <sstream>
+#include <fstream>
 
 string_vector readFile(string filename) {
     ifstream input(filename);
@@ -38,4 +44,14 @@ bool createFile(string data, string filename, string extension){
     output.close();
 
     return true;
+}
+
+string_vector split(const string &s, char delimiter) {
+    string_vector tokens;
+    string token;
+    istringstream tokenStream(s);
+    while (getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+    return tokens;
 }
