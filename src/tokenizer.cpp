@@ -8,13 +8,12 @@
 #include <fstream>
 
 
-token_vector tokenize(const string &sourceCode) {
+token_vector tokenize(string_vector &sourceCode) {
     token_vector tokens;
-    istringstream stream(sourceCode);
     string line;
     int lineNumber = 0;
 
-    while (getline(stream, line)) {
+    for (auto line : sourceCode) {
         lineNumber++;
 
         if (line.empty()) continue;
