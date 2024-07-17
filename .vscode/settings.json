@@ -8,6 +8,10 @@
         "xtr1common": "cpp",
         "fstream": "cpp",
         "vector": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "filesystem": "cpp",
+        "stdexcept": "cpp",
+        "algorithm": "cpp"
     }
 }

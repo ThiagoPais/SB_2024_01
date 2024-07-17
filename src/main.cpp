@@ -10,12 +10,8 @@
 // MAIN DE TESTES
 
 int main() {
-    string_vector code = readFile("teste.txt");
-    cout << code.size() <<endl;
-    for (auto line : code) {
-        cout << "aaa" <<endl;
-        cout << line << endl;
-    }
+    string_vector code = readFile("teste.asm");
+    
     token_vector tokens = tokenize(code);
 
     for (const auto &token : tokens) {

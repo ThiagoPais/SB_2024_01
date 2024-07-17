@@ -6,20 +6,26 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 
-string_vector readFile(string filename) {
-    ifstream input(filename);
 
-    string_vector res;
+string_vector readFile(const string& filename) {
+    string_vector lines;
+    //string filePath = filesystem::current_path().string() + "\\" + filename;
+    ifstream file(filename.c_str());
+    string line;
 
-    string temp;
-
-    while(getline(input, temp)){
-        res.push_back(string(temp.c_str()));
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            lines.push_back(line);
+        }
+        file.close();
+    } else {
+        throw std::invalid_argument("Unable to open file: " + filename);
     }
 
-    return res;
-};
+    return lines;
+}
 
 bool createFile(string_vector data, string filename, string extension){
     ofstream output;

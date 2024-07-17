@@ -1,7 +1,7 @@
 #include "typedef.h"
 
 // Read the file provided and returns a string vector
-string_vector readFile(string filename);
+string_vector readFile(const string& filePath);
 
 // Creates file with the given data
 bool createFile(string data, string filename, string extension);

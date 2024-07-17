@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 
 
 token_vector tokenize(string_vector &sourceCode) {
@@ -18,6 +19,8 @@ token_vector tokenize(string_vector &sourceCode) {
 
         if (line.empty()) continue;
 
+        if (line.find(',')) std::replace( line.begin(), line.end(), ',', ' ');
+        
         // Disconsiders comments
         size_t commentPos = line.find(';');
         if (commentPos != string::npos) {

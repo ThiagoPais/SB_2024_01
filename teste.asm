@@ -1,3 +1,4 @@
+label: JMP A
 LOAD A
 SUB B ; TESTE
-ADD C
+ADD C,D
