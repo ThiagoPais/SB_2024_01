@@ -9,11 +9,11 @@ using namespace std;
 #define token_vector  vector<Token>
 
 struct Token {
-    Token(string text = "", int line = 0)
+    Token(string text = "", short int line = 0)
     : text(text), line(line) {};
 
     string text;
-    int line;
+    short int line;
 
     template<typename T> void operator+= (T rhs){ text += rhs; }
     template<typename T> void operator=  (T rhs){ text = rhs;  }

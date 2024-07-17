@@ -28,13 +28,10 @@ struct command {
 };
 
 enum DIRECTIVECODE { 
-    SECTION, 
     SPACE,   
     CONST,   
     EQU,     
-    IF,      
-    MACRO,   
-    ENDMACRO 
+    IF
 };
 
 
