@@ -15,6 +15,8 @@ int main() {
     
     token_vector tokens = tokenize(code);
 
+    // token_vector tokens2 = preprocessar(tokens)
+
     IR parsed_code = parse(tokens);
 
     string test = assemble(parsed_code);

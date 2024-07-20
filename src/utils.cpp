@@ -11,7 +11,6 @@
 
 string_vector readFile(const string& filename) {
     string_vector lines;
-    //string filePath = filesystem::current_path().string() + "\\" + filename;
     ifstream file(filename.c_str());
     string line;
 
