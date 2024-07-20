@@ -1,4 +1,5 @@
 #include "typedef.h"
+#include <string>
 
 // Read the file provided and returns a string vector
 string_vector readFile(const string& filePath);

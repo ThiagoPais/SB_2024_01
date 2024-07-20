@@ -1,4 +1,5 @@
 #include "../include/tokenizer.h"
+#include "../include/assembler.h"
 
 #include <iostream>
 #include <vector>
@@ -14,9 +15,11 @@ int main() {
     
     token_vector tokens = tokenize(code);
 
-    for (const auto &token : tokens) {
-        cout << "Token: " << token.text << ", Line: " << token.line << endl;
-    }
+    IR parsed_code = parse(tokens);
+
+    string test = assemble(parsed_code);
+
+    cout << test << endl;
 
     return 0;
 }
