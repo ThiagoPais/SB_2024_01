@@ -19,9 +19,12 @@ int main() {
 
     IR parsed_code = parse(tokens);
 
-    string test = assemble(parsed_code);
+    string_vector test = assemble(parsed_code);
+    for (auto tst : test) {
+        cout << tst << endl;
+    }
 
-    cout << test << endl;
+    createFile(test, "teste", ".o");
 
     return 0;
 }

@@ -1,3 +1,3 @@
 #include "parser.h"
 
-string assemble(IR ir);
+string_vector assemble(IR ir);

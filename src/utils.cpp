@@ -31,7 +31,7 @@ bool createFile(string_vector data, string filename, string extension){
     output.open ((filename + extension).c_str());
     if (!output) return false;
 
-    for (auto& line : data) output << line;
+    for (auto& line : data) output << line << endl;
 
     output.close();
 

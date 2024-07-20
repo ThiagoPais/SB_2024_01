@@ -3,16 +3,20 @@
 struct IRCommand {
     IRCommand(command cmd, string_vector params) : cmd(cmd), params(params) {};
 
-    command cmd;
-    string_vector params;
+    command         cmd;
+    string_vector   params;
 };
 
 struct IR {
-    vector<IRCommand> commands;
-    vector<int> memory_spaces;
+    vector<IRCommand>   commands;
+    vector<int>         memory_spaces;
+
+    bool                     isModule;
+    map<string, vector<int>> use_table;
+    map<string, int>         def_table;
     
-    IR(vector<IRCommand> commands, vector<int> memory_spaces) : commands(commands), memory_spaces(memory_spaces) {};
-    IR() : commands({}), memory_spaces({}) {};
+    IR(vector<IRCommand> commands, vector<int> memory_spaces, bool isModule, map<string, vector<int>> use_table, map<string, int> def_table) : commands(commands), memory_spaces(memory_spaces), isModule(isModule), use_table(use_table), def_table(def_table) {};
+    IR() : commands({}), memory_spaces({}), isModule(false), use_table(use_table), def_table(def_table) {};
     
 };
 

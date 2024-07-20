@@ -28,6 +28,10 @@ std::map<std::string, directive> initializeDirectives() {
     directives["CONST"] = directive(CONST, 1, 1);
     directives["EQU"] = directive(EQU, 1, 0);
     directives["IF"] = directive(IF, 1, 0);
+    directives["BEGIN"] = directive(BEGIN, 0, 0);
+    directives["END"] = directive(END, 0, 0);
+    directives["EXTERN"] = directive(EXTERN, 0, 0);
+    directives["PUBLIC"] = directive(PUBLIC, 0, 0);
 
     return directives;
 }

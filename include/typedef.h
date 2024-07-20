@@ -23,12 +23,15 @@ struct Token {
 };
 
 struct Symbol {
-    Symbol(short int value = 0, bool defined = false, vector<short int> pendency_list = {})
-    : value(value), defined(defined), pendency_list(pendency_list) {};
+    Symbol(short int value = 0, bool defined = false, vector<short int> pendency_list = {}, bool external = false)
+    : value(value), defined(defined), pendency_list(pendency_list), external(external) {};
 
     short int value;
     bool defined;
     vector<short int> pendency_list;
+    bool external;
 };
 
 typedef map<std::string, Symbol> symbol_table;
+typedef map<std::string, vector<int>> use_table;
+typedef map<std::string, int> def_table;

@@ -34,7 +34,11 @@ enum DIRECTIVECODE {
     SPACE,   
     CONST,   
     EQU,     
-    IF
+    IF,
+    BEGIN,
+    END,
+    EXTERN,
+    PUBLIC
 };
 
 struct directive {

@@ -4,11 +4,19 @@
 
 
 IR parse(token_vector &tokens) {
-    short int current_memory_position = 0;
-    symbol_table st;
-    vector<IRCommand> ir_commands;
-    vector<int> memory_spaces;
-    std::map<std::string, command> commands = initializeCommands();
+    short int           current_memory_position = 0;
+
+    symbol_table        st;
+    use_table           use_table;
+    def_table           def_table;
+
+    vector<IRCommand>   ir_commands;
+    vector<int>         memory_spaces;
+
+    std::map<std::string, command>   commands   = initializeCommands();
+    std::map<std::string, directive> directives = initializeDirectives();
+
+    bool isModule = false;
     
     for (size_t i = 0; i < tokens.size(); i++) {
         // Labels   
@@ -23,14 +31,24 @@ IR parse(token_vector &tokens) {
 
             if (!st.count(label)) {
                 // Label nunca antes vista
-                Symbol symbol(current_memory_position, true, {});
-                st[label] = symbol;
+                if (i+1 < tokens.size() && tokens[i+1].line == tokens[i].line && tokens[i+1].text == "EXTERN") {
+                    Symbol symbol(0, true, {}, true);
+                    st[label] = symbol;
+                    use_table[label] = {};
+                    i++;
+                } else {
+                    Symbol symbol(current_memory_position, true, {});
+                    st[label] = symbol;
+                }
             } else {
+                // Label na tabela de definições
+                if (def_table.count(label)) {
+                    def_table[label] = current_memory_position;
+                }
                 // Label já utilizada
                 st[label].value = current_memory_position;
+
                 // Volta para todas as ocasiões anteriores e substitui a label pelo valor da memória
-                
-                cout << current_memory_position << endl;
                 for (size_t pdc : st[label].pendency_list) {
                     replace(ir_commands[pdc].params.begin(), ir_commands[pdc].params.end(), label, to_string(st[label].value));
                 }
@@ -44,6 +62,10 @@ IR parse(token_vector &tokens) {
                 i++;
                 // Check label
                 verifyLabel(tokens[i]);
+
+                if (use_table.count(tokens[i].text)) {
+                    use_table[tokens[i].text].push_back(current_memory_position);
+                }
                 
                 if (st.count(tokens[i].text)) {
                     // Symbol on symbol table
@@ -72,6 +94,13 @@ IR parse(token_vector &tokens) {
             }
             ir_commands.push_back(irCmd);
             
+        } else if (tokens[i].text == "PUBLIC") {
+            if (i+1 < tokens.size() && tokens[i+1].line == tokens[i].line) {
+                i++;
+                def_table[tokens[i].text] =  {};
+            }
+        } else if (tokens[i].text == "BEGIN" || tokens[i].text == "END") {
+            isModule = true;
         } else if (tokens[i].text == "CONST") {
             if (i+1 < tokens.size() && tokens[i+1].line == tokens[i].line) {
                 i++;
@@ -93,24 +122,39 @@ IR parse(token_vector &tokens) {
         }
     }
 
-    for (const auto& entry : st) {
-        const std::string& symbol_name = entry.first;
-        const Symbol& symbol = entry.second;
+    // for (const auto& entry : st) {
+    //     const std::string& symbol_name = entry.first;
+    //     const Symbol& symbol = entry.second;
         
-        std::cout << "Symbol: " << symbol_name << "\n";
-        std::cout << "  Value: " << symbol.value << "\n";
-        std::cout << "  Defined: " << (symbol.defined ? "true" : "false") << "\n";
-        std::cout << "  Pendency List: [";
-        for (size_t i = 0; i < symbol.pendency_list.size(); ++i) {
-            std::cout << symbol.pendency_list[i];
-            if (i != symbol.pendency_list.size() - 1) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << "]\n";
-    }
+    //     std::cout << "Symbol: " << symbol_name << "\n";
+    //     std::cout << "  Value: " << symbol.value << "\n";
+    //     std::cout << "  Defined: " << (symbol.defined ? "true" : "false") << "\n";
+    //     std::cout << "  Pendency List: [";
+    //     for (size_t i = 0; i < symbol.pendency_list.size(); ++i) {
+    //         std::cout << symbol.pendency_list[i];
+    //         if (i != symbol.pendency_list.size() - 1) {
+    //             std::cout << ", ";
+    //         }
+    //     }
+    //     std::cout << "]\n";
+    // }
 
-    IR ir(ir_commands, memory_spaces);
+    // for (const auto& entry : use_table) {
+    //     const std::string& symbol_name = entry.first;
+    //     const vector<int> symbol_uses = entry.second;
+        
+    //     std::cout << "Symbol: " << symbol_name << "\n";
+    //     std::cout << "  Use list: [";
+    //     for (size_t i = 0; i < symbol_uses.size(); ++i) {
+    //         std::cout << symbol_uses[i];
+    //         if (i != symbol_uses.size() - 1) {
+    //             std::cout << ", ";
+    //         }
+    //     }
+    //     std::cout << "]\n";
+    // }
+
+    IR ir(ir_commands, memory_spaces, isModule, use_table, def_table);
     return ir;
 }
 
