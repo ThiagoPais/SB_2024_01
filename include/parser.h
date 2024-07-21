@@ -28,4 +28,6 @@ bool isNumeric (std::string s);
 
 bool isNumeric (char c);
 
-bool containsSpecialSymbols(std::string s);
+bool hasSpecialSymbols(std::string s);
+
+bool isSpecialSymbol(char c);

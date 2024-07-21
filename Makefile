@@ -2,7 +2,7 @@ SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := output
 
-EXE := $(BIN_DIR)/main
+EXE := montador
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 

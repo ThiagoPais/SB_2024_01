@@ -29,10 +29,16 @@ token_vector tokenize(string_vector &sourceCode) {
 
         // Split the line into words and trim them
         vector<string> words = split(line, ' ');
-        for (const auto &word : words) {
+        for (auto &word : words) {
             if (word.empty()) continue;
+            toUpperCase(word);
             tokens.push_back(Token(word, lineNumber));
         }
+        
     }
     return tokens;
+}
+
+void toUpperCase(std::string &str) {
+    std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c) { return std::toupper(c); });
 }

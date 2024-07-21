@@ -10,21 +10,21 @@
 
 // MAIN DE TESTES
 
-int main() {
-    string_vector code = readFile("teste.asm");
+// int main() {
+//     string_vector code = readFile("teste.asm");
     
-    token_vector tokens = tokenize(code);
+//     token_vector tokens = tokenize(code);
 
-    // token_vector tokens2 = preprocessar(tokens)
+//     // token_vector tokens2 = preprocessar(tokens)
 
-    IR parsed_code = parse(tokens);
+//     IR parsed_code = parse(tokens);
 
-    string_vector test = assemble(parsed_code);
-    for (auto tst : test) {
-        cout << tst << endl;
-    }
+//     string_vector test = assemble(parsed_code);
+//     for (auto tst : test) {
+//         cout << tst << endl;
+//     }
 
-    createFile(test, "teste", ".o");
+//     createFile(test, "teste", ".o");
 
-    return 0;
-}
+//     return 0;
+// }

@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <filesystem>
+#include "utils.h"
 
 
 string_vector readFile(const string& filename) {
@@ -32,6 +33,28 @@ bool createFile(string_vector data, string filename, string extension){
     if (!output) return false;
 
     for (auto& line : data) output << line << endl;
+
+    output.close();
+
+    return true;
+}
+
+// overload for token vector
+bool createFile(token_vector data, string filename, string extension) {
+    ofstream output;
+    output.open ((filename + extension).c_str());
+    if (!output) return false;
+
+    for (size_t i; i < data.size(); i++) {
+        output << data[i].text;
+
+        while (i+1 < data.size() && data[i+1].line == data[i].line) {
+            i++;
+            output << " ";
+            output << data[i].text;
+        }
+        output << endl;
+    };
 
     output.close();
 

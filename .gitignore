@@ -1,3 +1,7 @@
 output
 obj
 .vscode
+*.exe
+*.o
+*.pre
+teste.o
