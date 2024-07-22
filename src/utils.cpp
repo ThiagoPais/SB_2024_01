@@ -39,6 +39,27 @@ bool createFile(string_vector data, string filename, string extension){
     return true;
 }
 
+bool createExeFile(string_vector data, string filename, string extension){
+    ofstream output;
+    output.open ((filename + extension).c_str());
+    if (!output) return false;
+
+    for (size_t i; i < data.size(); i++) {
+        output << data[i];
+        i++;
+
+        while (i < data.size()) {
+            output << " ";
+            output << data[i];
+            i++;
+        }
+    }
+
+    output.close();
+
+    return true;
+}
+
 // overload for token vector
 bool createFile(token_vector data, string filename, string extension) {
     ofstream output;
@@ -82,4 +103,15 @@ string_vector split(const string &s, char delimiter) {
         tokens.push_back(token);
     }
     return tokens;
+}
+
+string_vector concatenate(string_vector string_A, string_vector string_B){
+    string_vector new_string;
+    for (int i = 0; i < string_A.size(); i++){
+		new_string.push_back(string_A[i]);
+	}
+    for (int i = 0; i < string_B.size(); i++){
+		new_string.push_back(string_B[i]);
+	}
+    return new_string;
 }

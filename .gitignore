@@ -6,5 +6,7 @@ obj
 *.pre
 teste.o
 *.asm
+*.e
+*.obj
 simulador
 tmp

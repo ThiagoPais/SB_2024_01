@@ -12,9 +12,7 @@ int main(int argc, char *argv[]) {
     string file = argv[2];
     string file_name = file.substr(0, file.find_last_of('.'));
 
-
     string_vector code = readFile(file);
-    
     // atualizar code com a funcao de preprocessamento
     token_vector tokens = tokenize(code);
     token_vector preprocessed_code = preprocess(tokens);
@@ -29,7 +27,7 @@ int main(int argc, char *argv[]) {
 
         string_vector assembled = assemble(parsed_code);
 
-        createFile(assembled, file_name, ".o");
+        createFile(assembled, file_name, ".obj");
         // string_vector code = readFile("teste.o");
         // for (auto c : code) {
         //     cout << c << endl;
