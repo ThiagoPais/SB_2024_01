@@ -173,7 +173,9 @@ IR parse(token_vector &tokens) {
 }
 
 void verifyLabel(Token t) {
-    string label = t.text.substr(0, t.text.size() - 1);
+    string label = t.text;
+    if (label.back() == ':') label = label.substr(0, t.text.size() - 1);
+
     if (isNumeric(label)) {
         throw std::invalid_argument("LEXICAL ERROR! Argumento inválido. Número no lugar de label. Linha: " + to_string(t.line) + " Label: " + label);
     }
