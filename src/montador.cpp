@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     if (op == "-p") { // Pre-processamento
         createFile(preprocessed_code, file_name, ".pre");
         return 0;
-    } 
+    }
     
     else if (op == "-o") { // Montagem
         IR parsed_code = parse(preprocessed_code);
@@ -28,6 +28,10 @@ int main(int argc, char *argv[]) {
         string_vector assembled = assemble(parsed_code);
 
         createFile(assembled, file_name, ".obj");
+        // string_vector code = readFile("teste.o");
+        // for (auto c : code) {
+        //     cout << c << endl;
+        // }
 
         return 0;
     }

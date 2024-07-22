@@ -47,6 +47,7 @@ string_vector assemble(IR ir) {
         def_line += to_string(symbol.second);
         def_line += " ";
     }
+    
     module.push_back(def_line);
 
     module.push_back("REAL");

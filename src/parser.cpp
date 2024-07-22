@@ -132,6 +132,12 @@ IR parse(token_vector &tokens) {
         }
     }
 
+    for (auto pair : st) {
+        if (!pair.second.defined) {
+            throw std::invalid_argument("SEMANTIC ERROR! Label nunca definida. Label: " + pair.first);
+        }
+    }
+
     #ifdef DEBUG_SYMBOL_TABLE
     for (const auto& entry : st) {
         const std::string& symbol_name = entry.first;
@@ -165,6 +171,16 @@ IR parse(token_vector &tokens) {
             }
         }
         std::cout << "]\n";
+    }
+    #endif
+
+    #ifdef DEBUG_DEF_TABLE
+    for (const auto& entry : def_table) {
+        const std::string& symbol_name = entry.first;
+        const int symbol = entry.second;
+        
+        std::cout << "Symbol: " << symbol_name << "\n";
+        std::cout << "  def: " << symbol << endl;
     }
     #endif
 
