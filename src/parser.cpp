@@ -132,6 +132,12 @@ IR parse(token_vector &tokens) {
         }
     }
 
+    for (auto pair : st) {
+        if (!pair.second.defined) {
+            throw std::invalid_argument("SEMANTIC ERROR! Label nunca definida. Label: " + pair.first);
+        }
+    }
+
     #ifdef DEBUG_SYMBOL_TABLE
     for (const auto& entry : st) {
         const std::string& symbol_name = entry.first;
@@ -168,12 +174,24 @@ IR parse(token_vector &tokens) {
     }
     #endif
 
+    #ifdef DEBUG_DEF_TABLE
+    for (const auto& entry : def_table) {
+        const std::string& symbol_name = entry.first;
+        const int symbol = entry.second;
+        
+        std::cout << "Symbol: " << symbol_name << "\n";
+        std::cout << "  def: " << symbol << endl;
+    }
+    #endif
+
     IR ir(ir_commands, memory_spaces, isModule, use_table, def_table);
     return ir;
 }
 
 void verifyLabel(Token t) {
-    string label = t.text.substr(0, t.text.size() - 1);
+    string label = t.text;
+    if (label.back() == ':') label = label.substr(0, t.text.size() - 1);
+
     if (isNumeric(label)) {
         throw std::invalid_argument("LEXICAL ERROR! Argumento inválido. Número no lugar de label. Linha: " + to_string(t.line) + " Label: " + label);
     }

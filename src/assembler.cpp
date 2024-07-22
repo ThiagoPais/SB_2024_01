@@ -35,17 +35,19 @@ string_vector assemble(IR ir) {
             uso_line += " ";
             uso_line += to_string(use);
         }
+        uso_line += " ";
     }
     module.push_back(uso_line);
 
     module.push_back("DEF");
     string def_line;
     for (auto symbol : ir.def_table) {
-        uso_line += symbol.first;
-        uso_line += " ";
-        uso_line += symbol.second;
-        uso_line += " ";
+        def_line += symbol.first;
+        def_line += " ";
+        def_line += to_string(symbol.second);
+        def_line += " ";
     }
+    
     module.push_back(def_line);
 
     module.push_back("REAL");
