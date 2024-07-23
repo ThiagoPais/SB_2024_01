@@ -1,10 +1,18 @@
 SRC_DIR := src
 OBJ_DIR := obj
-BIN_DIR := output
 
-EXE := montador
+EXE1 := montador
+EXE2 := ligador
+
+# Source files for each executable
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
-OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+SRC1 := $(filter-out $(SRC_DIR)/ligador.cpp, $(SRC))
+SRC2 := $(filter-out $(SRC_DIR)/montador.cpp, $(SRC))
+
+
+# Object files for each executable
+OBJ1 := $(SRC1:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+OBJ2 := $(SRC2:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 CPPFLAGS := -Iinclude -MMD -MP
 CFLAGS   := -Wall
@@ -14,18 +22,21 @@ CC       := g++
 
 .PHONY: all clean
 
-all: $(EXE)
+all: $(EXE1) $(EXE2)
 
-$(EXE): $(OBJ) | $(BIN_DIR)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+$(EXE1): $(OBJ1) 
+	$(CC) $(LDFLAGS) $(OBJ1) $(LDLIBS) -o $@
+
+$(EXE2): $(OBJ2) 
+	$(CC) $(LDFLAGS) $(OBJ2) $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-$(BIN_DIR) $(OBJ_DIR):
+$(OBJ_DIR):
 	mkdir -p $@
 
 clean:
-	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
+	@$(RM) -rv $(OBJ_DIR)
 
--include $(OBJ:.o=.d)
+-include $(OBJ1:.o=.d) $(OBJ2:.o=.d)
