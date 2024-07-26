@@ -43,6 +43,9 @@ IR parse(token_vector &tokens) {
                 } else {
                     Symbol symbol(current_memory_position, true, {});
                     st[label] = symbol;
+                    if (def_table.count(label)) {
+                        def_table[label] = current_memory_position;
+                    }
                 }
             } else {
                 // Label na tabela de definições
